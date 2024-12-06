@@ -1,0 +1,47 @@
+services:
+  app:
+    container_name: spring-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - db
+      - flyway
+    entrypoint: ["sh", "-c", "sleep 30 && java -jar app.jar"]
+
+  flyway:
+    image: flyway/flyway
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    networks:
+      - app-network
+    entrypoint: ["sh", "-c", "sleep 20 && flyway migrate"]
+
+  db:
+    image: mysql
+    container_name: mysql-db
+    env_file:
+      - .env
+    networks:
+      - app-network
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:
