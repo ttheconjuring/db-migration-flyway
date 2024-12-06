@@ -15,3 +15,4 @@ How to run:
 - You can uncomment the code from the DemoApplication.java
 - Stop the running MySQL server
 - Start Docker and type: <code>docker-compose up</code>
+- After successfull performance, connect to the database and see the results
