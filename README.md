@@ -13,4 +13,3 @@ How to run:
 - Open the project folder with IntelliJ, then type: <code>mvn install</code> or <code>./mvnw install</code>
 - Stop the running MySQL server
 - Start Docker and type: <code>docker-compose up</code>
-
