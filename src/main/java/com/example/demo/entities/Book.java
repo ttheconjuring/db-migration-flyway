@@ -23,4 +23,7 @@ public class Book {
     @Basic
     private String title;
 
+    @Basic
+    private String category;
+
 }
