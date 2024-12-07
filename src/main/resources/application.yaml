@@ -6,7 +6,7 @@ spring:
     name: demo
 
   datasource:
-    url: jdbc:mysql://localhost:3306/flyway_migration?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/flyway_migration?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: 1234
 
@@ -17,4 +17,3 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
