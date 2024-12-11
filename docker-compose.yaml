@@ -4,8 +4,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    env_file:
-      - .env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/flyway_migration?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
     ports:
       - "8080:8080"
     networks:
@@ -19,8 +21,12 @@ services:
     image: flyway/flyway
     depends_on:
       - db
-    env_file:
-      - .env
+    environment:
+      FLYWAY_URL: jdbc:mysql://db:3306/flyway_migration?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      FLYWAY_USER: root
+      FLYWAY_PASSWORD: 1234
+      FLYWAY_PLACEHOLDERS_PASSWORD: 1234
+      FLYWAY_LOCATIONS: filesystem:/flyway/sql
     volumes:
       - ./src/main/resources/db/migration:/flyway/sql
     networks:
@@ -30,8 +36,9 @@ services:
   db:
     image: mysql
     container_name: mysql-db
-    env_file:
-      - .env
+    environment:
+      MYSQL_DATABASE: flyway_migration
+      MYSQL_ROOT_PASSWORD: 1234
     networks:
       - app-network
     ports:
